@@ -1,0 +1,242 @@
+แนวข้อสอบกลางภาค
+
+### Introduction 5% (อธิบายงานทาง NLP โดยยกตัวอย่าง input และ output ที่ได้ของงาน)
+
+Natural Language Processing (NLP) คือสาขาของวิทยาการคอมพิวเตอร์ที่เกี่ยวข้องกับการประมวลผลภาษาธรรมชาติหรือ
+ภาษามนุษย์โดยใช้คอมพิวเตอร์เพื่อทำงานต่าง ๆ ที่เกี่ยวข้องกับภาษา
+1. ตรวจจับภาษา (Language Detection)
+	Input: ข้อความที่ต้องการตรวจจับภาษา
+	Output: ภาษาที่ใช้ในข้อความนั้น ๆ
+2. การแปลภาษา (Machine Translation)
+	Input: ประโยคหรือเอกสารที่ต้องการแปล
+	Output: ประโยคหรือเอกสารที่แปลเป็นภาษาที่กำหนด
+3. การตัดคำ (Tokenization)
+	Input: ประโยคหรือเอกสารที่ต้องการตัดคำ
+	Output: ลิสต์ของคำหรือโทเคนที่ถูกตัดออกมาจากประโยคหรือเอกสาร
+4. การวิเคราะห์ความหมาย (Semantic Analysis)
+	Input: ประโยคหรือเอกสารที่ต้องการวิเคราะห์
+	Output: ข้อมูลที่เกี่ยวข้องกับความหมายของประโยคหรือเอกสาร, เช่น สาระสำคัญ, ความรู้สึก, หรือความต้องการ
+5. การสร้างข้อความ (Text Generation)
+	Input: ข้อมูลที่ต้องการให้ระบบสร้างข้อความ
+	Output: ข้อความที่ถูกสร้างขึ้นโดยระบบ
+6. การจำแนกประเภท (Text Classification)
+	Input: ข้อความหรือเอกสารที่ต้องการจำแนก
+	Output: ประเภทหรือกลุ่มที่ข้อความหรือเอกสารนั้นถูกจัดไป
+7. การสร้างคำแนะนำ (Recommendation Systems)
+	Input: ข้อมูลเกี่ยวกับผู้ใช้หรือสิ่งที่ต้องการแนะนำ
+	Output: รายการแนะนำที่เหมาะสมสำหรับผู้ใช้
+
+### nltk & text corpus 10% (อธิบายศัพท์ทาง NLP และยกตัวอย่างโค้ด)
+
+1. Tokenization (ตัดคำ): กระบวนการแบ่งประโยคหรือข้อความเป็นหน่วยที่เล็กที่สุด, เรียกว่า "โทเคน" (token), เช่น คำ, ตัวเลข, หรือสัญลักษณ์.
+ตัวอย่างโค้ด Python :
+
+from nltk.tokenize import word_tokenize
+
+text = "Natural Language Processing is fascinating!"
+tokens = word_tokenize(text)
+print(tokens)
+
+2. Word Embeddings (การแปลงคำเป็นเวกเตอร์): กระบวนการแปลงคำหรือประโยคเป็นเวกเตอร์ตามคุณลักษณะทางความหมาย.
+ตัวอย่างโค้ด Python :
+
+from gensim.models import Word2Vec
+
+sentences = [["Natural", "Language", "Processing"], ["is", "fascinating"]]
+model = Word2Vec(sentences, min_count=1)
+vector = model.wv['Language']
+print(vector)
+
+3. คำว่า "corpus" ในทางเทคนิคของ Natural Language Processing (NLP) มีความหมายเป็นชุดข้อมูลที่ใช้สำหรับการศึกษาหรือการวิจัยทางภาษาธรรมชาติ (Natural Language).
+ตัวอย่างโค้ด Python :
+
+import nltk
+from nltk.corpus import gutenberg
+
+# Download the Gutenberg corpus if not already downloaded
+nltk.download('gutenberg')
+
+# Get a list of available books in the Gutenberg corpus
+book_list = gutenberg.fileids()
+print("List of available books in the Gutenberg corpus:")
+print(book_list)
+
+# Load a specific book from the Gutenberg corpus
+book_text = gutenberg.raw('shakespeare-hamlet.txt')
+
+# Print the first 500 characters of the book
+print("\nFirst 500 characters of the book:")
+print(book_text[:500])
+
+4. Part-of-Speech Tagging (ติดป้ายส่วนของประโยค): การกำหนดป้ายส่วนของคำในประโยค, เช่น การระบุว่าคำไหนเป็น Noun, Verb, Adjective, เป็นต้น.
+ตัวอย่างโค้ด Python
+
+from nltk import pos_tag
+from nltk.tokenize import word_tokenize
+
+text = "Natural Language Processing is fascinating!"
+tokens = word_tokenize(text)
+pos_tags = pos_tag(tokens)
+print(pos_tags)
+
+5. Stemming (ตัดคำเรียกกลุ่ม): กระบวนการลดคำที่มีความหมายเหมือนกันลงเป็นรูปฟอร์มที่มีความยาวเท่ากัน, เพื่อลดการความแตกต่างทางภาษา.
+ตัวอย่างโค้ด Python
+
+from nltk.stem import PorterStemmer
+
+ps = PorterStemmer()
+words = ["running", "jumps", "played"]
+stemmed_words = [ps.stem(word) for word in words]
+print(stemmed_words)
+
+### web scraping 5% (ดึงข้อมูลจากเว็บที่ระบุ โดยเลือกข้อมูลอย่างน้อย 3 ข้อมูล จัดเก็บในรูปแบบ csv)
+
+การดึงข้อมูลจากเว็บไซต์มักจะใช้ไลบรารี requests สำหรับการเรียก HTTP requests และ BeautifulSoup สำหรับการทำ web scraping (การดึงข้อมูลจาก HTML). 
+นอกจากนี้, pandas สามารถใช้งานได้สะดวกในการจัดเก็บข้อมูลในรูปแบบ CSV.
+
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+# URL ของเว็บที่ต้องการดึงข้อมูล
+url = 'https://example.com'
+
+# ส่ง HTTP request เพื่อดึงเนื้อหาของเว็บ
+response = requests.get(url)
+
+# ตรวจสอบว่าการ request สำเร็จหรือไม่
+if response.status_code == 200:
+    # ใช้ BeautifulSoup เพื่อแปลงเนื้อหา HTML ให้เป็นโครงสร้างข้อมูลที่ใช้งานได้
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+    # ดึงข้อมูลที่ต้องการจาก HTML
+    # (ในที่นี้, มีการสมมติว่าเราต้องการดึงข้อมูลจากตาราง)
+    table = soup.find('table')
+
+    # ใช้ pandas เพื่อแปลงข้อมูลจาก HTML table เป็น DataFrame
+    df = pd.read_html(str(table))[0]
+
+    # บันทึก DataFrame เป็นไฟล์ CSV
+    df.to_csv('output_data.csv', index=False)
+else:
+    print('Failed to retrieve the webpage. Status code:', response.status_code)
+
+### word representation 5% (ตอบคำถามเกี่ยวกับการแทนคำในรูปแบบต่างๆ, เขียนโปรแกรมเกี่ยวกับ word representation)
+
+Word Embeddings ซึ่งเป็นการแทนคำในรูปแบบเวกเตอร์ที่มีความหมาย.
+Word Embeddings เป็นเทคนิคที่ใช้เวกเตอร์เลขจำนวนจริงเพื่อแทนคำแต่ละคำ, ซึ่งถูกสร้างจากโมเดลที่เรียนรู้จากข้อมูลภาษา. Word Embeddings 
+มีคุณสมบัติที่นำความหมายของคำมาด้วย, หมายความว่าคำที่คล้ายกันจะมีเวกเตอร์ที่ใกล้เคียงกัน. นอกจากนี้, Word Embeddings ยังเป็นรูปแบบที่เหมาะสำหรับการประมวลผลภาษาธรรมชาติ.
+
+ตัวอย่าง code :
+from gensim.models import Word2Vec
+from nltk.tokenize import word_tokenize
+import nltk
+nltk.download('punkt')
+
+# ข้อมูลข้อความตัวอย่าง
+text_data = [
+    "Natural Language Processing is fascinating.",
+    "Word Embeddings capture semantic meanings.",
+    "Machine Learning models use word vectors."
+]
+
+# ตัดคำและเตรียมข้อมูล
+tokenized_data = [word_tokenize(sentence.lower()) for sentence in text_data]
+
+# สร้าง Word Embeddings โมเดล
+model = Word2Vec(sentences=tokenized_data, vector_size=5, window=3, min_count=1, workers=4)
+
+# แสดง Word Embedding ของคำ 'language'
+print("Word Embedding for 'language':", model.wv['language'])
+
+1. One-Hot Encoding:
+การแทนคำในรูปแบบ One-Hot Encoding คือการให้แต่ละคำเป็นเวกเตอร์ที่มีขนาดเท่ากับขนาดของพจนานุกรม (vocabulary). ในเวกเตอร์นี้, มีค่า 1 ที่ตำแหน่งที่แทนคำนั้น ๆ และค่า 0 ที่ตำแหน่งอื่น ๆ.
+
+2. Bag-of-Words (BoW):
+BoW คือเทคนิคที่นับจำนวนครั้งที่คำแต่ละคำปรากฏในข้อความ, แล้วแทนคำทั้งหมดในข้อความด้วยเวกเตอร์ขนาดของพจนานุกรม.
+
+3. TF-IDF (Term Frequency-Inverse Document Frequency):
+TF-IDF คือการนำเสนอความสำคัญของคำโดยให้ค่าสูงถ้าคำนั้นปรากฏมากในเอกสารแต่ละเอกสาร (Term Frequency) และหากคำนั้นปรากฏน้อยในเอกสารทั้งหมด (Inverse Document Frequency).
+
+4. Word2Vec, GloVe, FastText:
+มีโมเดล Word Embeddings ที่ได้รับความนิยมอย่าง Word2Vec, GloVe, และ FastText ซึ่งเป็นโมเดลที่สร้าง Word Embeddings โดยใช้เทคนิคต่าง ๆ ที่ซับซ้อน.
+
+5. Contextualized Word Embeddings:
+คือ Word Embeddings ที่ได้รับผลต่อจากบริบทของคำในประโยค หรือข้อความโดยให้คำแต่ละคำมีเวกเตอร์ที่มีความหมายที่แตกต่างตามบริบท.
+
+6. Subword Embeddings:
+นับความหมายของคำด้วยการแยกคำเป็นส่วนย่อย, เช่น Byte Pair Encoding (BPE) หรือ SentencePiece.
+
+### text classification & logistic regression & neural network 10% (ตอบคำถาม และอธิบายโค้ดประกอบ, เขียนโปรแกรมเพื่อจำแนกประเภทอย่างง่าย)
+
+1. Text Classification:
+Text Classification เป็นการให้คลาส (หรือประเภท) แก่ข้อความต่าง ๆ ตามเนื้อหาของข้อความนั้น ๆ. ตัวอย่างการใช้ Text Classification คือการตรวจสอบว่าอีเมลล์เป็นสแปมหรือไม่, การจำแนกหมวดหมู่ของข่าว, หรือการพิจารณาทวีตว่าเป็นบวกหรือลบ.
+
+2. Logistic Regression:
+Logistic Regression เป็นแบบจำลองสถิติที่ใช้สำหรับการจำแนกประเภท โดยมีการใช้ฟังก์ชัน Logistic หรือ Sigmoid เพื่อทำนายความน่าจะเป็นของการเป็นประเภทหนึ่ง. สำหรับงาน Text Classification, Logistic Regression สามารถใช้กับ Vector Space Model เพื่อแปลงข้อความเป็นเวกเตอร์และทำนายประเภทของข้อความนั้น.
+
+3. Neural Network:
+Neural Network เป็นโมเดลเชิงลึกที่สามารถเรียนรู้และจำแนกข้อมูลได้. ในที่นี้, Neural Network ที่ใช้ในงาน Text Classification อาจเป็น Feedforward Neural Network หรือ Recurrent Neural Network (RNN) ที่สามารถทำงานกับลำดับของคำ. ส่วนที่ใช้ในการจำแนกประเภทของข้อความใน Neural Network มักจะประกอบด้วยเลเยอร์ที่เกี่ยวข้องกับการจำแนก (เช่น Dense Layer) และฟังก์ชันกระตุ้น (Activation Function).
+
+ตอบคำถาม:
+
+คำถาม: ทำไม Text Classification ถึงสำคัญในงาน NLP?
+
+คำตอบ: Text Classification มีความสำคัญในงาน NLP เพราะมีการใช้ในหลายภารกิจที่สำคัญ เช่น การจำแนกหมวดหมู่ข่าว, การตรวจสอบความเห็นของลูกค้า, การคัดกรองสแปม, และอื่น ๆ. การทำ Text Classification ช่วยให้เครื่องจักรสามารถจำแนกและทำนายหมวดหมู่ของข้อมูลข้อความได้.
+อธิบายโค้ด:
+
+ต่อไปนี้คือตัวอย่างโค้ด Python ที่ใช้ scikit-learn สำหรับ Text Classification โดยใช้ Logistic Regression:
+
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
+
+# ข้อมูลตัวอย่าง
+texts = ["This is a positive example.", "Negative sentiment here.", "Another positive text."]
+
+# ป้ายกำกับ
+labels = [1, 0, 1]  # 1: Positive, 0: Negative
+
+# แบ่งข้อมูลเป็นชุดฝึกและชุดทดสอบ
+X_train, X_test, y_train, y_test = train_test_split(texts, labels, test_size=0.2, random_state=42)
+
+# สร้างเวกเตอร์จากข้อความ
+vectorizer = CountVectorizer()
+X_train_vectorized = vectorizer.fit_transform(X_train)
+X_test_vectorized = vectorizer.transform(X_test)
+
+# สร้างแบบจำลอง Logistic Regression
+model = LogisticRegression()
+model.fit(X_train_vectorized, y_train)
+
+# ทำนาย
+predictions = model.predict(X_test_vectorized)
+
+# วัดประสิทธิภาพ
+accuracy = accuracy_score(y_test, predictions)
+report = classification_report(y_test, predictions)
+
+print("Accuracy:", accuracy)
+print("Classification Report:\n", report)
+
+ในโค้ดนี้:
+
+- ข้อมูลตัวอย่างถูกแบ่งเป็นชุดฝึกและชุดทดสอบ.
+- CountVectorizer ถูกใช้เพื่อแปลงข้อความเป็นเวกเตอร์.
+- โมเดล Logistic Regression ถูกสร้างและฝึก.
+- ทำนายและวัดประสิทธิภาพด้วย accuracy และ classification report.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
